@@ -20,7 +20,7 @@ m.controller('catMap', function ($scope, $geolocation, $interval, $timeout,
   $scope.map = {
     center: $scope.myPosition,
     position: $scope.myPosition,
-    zoom: 13,
+    zoom: 12,
     locationData: []
   };
 
@@ -91,14 +91,23 @@ m.controller('catMap', function ($scope, $geolocation, $interval, $timeout,
           location.directionsStart = $scope.myPosition;
           location.Address.latitude = location.Address.Latitude;
           location.Address.longitude = location.Address.Longitude;
-          location.label = '<b>$' +
-            $filter('number')(location.ContentTIV, 2) +
-            '</b>';
+
+          var latDiff = location.directionsStart.latitude -
+                        location.Address.latitude;
+          var lonDiff = location.directionsStart.longitude -
+                        location.Address.longitude;
+          location.srcDistance = Math.sqrt(latDiff*latDiff + lonDiff*lonDiff) *
+                                69;
+          location.label = '<b>$' + $filter('number')(location.ContentTIV, 2) +
+                           '</b>';
 
           location.showWindow = false;
           location.closeClick = function () {
             location.showWindow = false;
-            $scope.$apply();
+            try{
+              $scope.$apply();
+            }
+            catch(e){}
           };
           location.onClicked = function (){
             onMarkerClicked(location);
@@ -107,6 +116,7 @@ m.controller('catMap', function ($scope, $geolocation, $interval, $timeout,
             updateLocations(50);
           }
         });
+        //$scope.map.locationData.sort(sortRiskItems);
       }, function() { //On Error
         updatingLocations = false;
         $timeout(updateLocations, 5000);

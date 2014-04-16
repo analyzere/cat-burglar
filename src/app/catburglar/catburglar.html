@@ -19,35 +19,54 @@
       <h3 class="panel-title"><i class="fa fa-map-marker"></i> Nearby 'Targets'</h3>
     </div>
     <div class="panel-body" ng-controller="catMap">
-      <google-map center="map.center" zoom="map.zoom" draggable="true">
-        <marker coords="map.position" options="map.myPositionOptions">
-          <marker-label content="'You Are Here'" anchor="22 0" class="marker-labels"/>
-        </marker>
-        <markers models="map.locationData"
-                 coords="'Address'"
-                 labelContent="'label'"
-                 click="'onClicked'">
-          <windows show="'showWindow'" closeClick="'closeClick'" ng-cloak>
-            <p ng-non-bindable>Target's contents are insured for {{label}}<b>!</b></p>
-            <p ng-non-bindable>Target is at {{ Address.latitude | number:4 }},
-                                            {{ Address.longitude | number:4 }}.
-              <a target="_blank"
-                 href="https://maps.google.ca/maps?saddr={{directionsStart.latitude}},{{directionsStart.longitude}}&daddr={{Address.latitude}},{{Address.longitude}}">
-                Get Directions
-              </a>
-            </p>
-            <p ng-non-bindable>
-              <b>Postal Code</b>: {{Address.PostalCode}}<br/>
-              <b>Listed Address</b>: {{Address.ACORDResolutionCode}}<br/>
-              <b>Stories</b>: {{CommonCharacteristics.NumStories}}<br/>
-              <b>Security Alarm</b>: {{CommonCharacteristics.SecurityAlarm}}<br/>
-              <b>Fire Alarm</b>: {{CommonCharacteristics.FireAlarm}}<br/>
-              <b>Total Home Value</b>: ${{TIV | number:2}}<br/>
-            </p>
-            <p class="muted">Remember: Always wear a hoodie</p>
-          </windows>
-        </markers>
-      </google-map>
+      <div class="row">
+        <div class="form-group col-sm-9">
+          <google-map center="map.center" zoom="map.zoom" draggable="true">
+            <marker coords="map.position" options="map.myPositionOptions">
+              <marker-label content="'You Are Here'" anchor="22 0" class="marker-labels"/>
+            </marker>
+            <markers models="map.locationData"
+                     coords="'Address'"
+                     labelContent="'label'"
+                     click="'onClicked'">
+              <windows show="'showWindow'" closeClick="'closeClick'" ng-cloak>
+                <p ng-non-bindable>Target's contents are insured for {{label}}<b>!</b></p>
+                <p ng-non-bindable>Target is at {{ Address.latitude | number:4 }},
+                                                {{ Address.longitude | number:4 }}.
+                  <a target="_blank"
+                     href="https://maps.google.ca/maps?saddr={{directionsStart.latitude}},{{directionsStart.longitude}}&daddr={{Address.latitude}},{{Address.longitude}}">
+                    Get Directions
+                  </a>
+                </p>
+                <p ng-non-bindable>
+                  <b>Postal Code</b>: {{Address.PostalCode}}<br/>
+                  <b>Listed Address</b>: {{Address.ACORDResolutionCode}}<br/>
+                  <b>Stories</b>: {{CommonCharacteristics.NumStories}}<br/>
+                  <b>Security Alarm</b>: {{CommonCharacteristics.SecurityAlarm}}<br/>
+                  <b>Fire Alarm</b>: {{CommonCharacteristics.FireAlarm}}<br/>
+                  <b>Total Home Value</b>: ${{TIV | number:2}}<br/>
+                </p>
+                <p class="muted">Remember: Always wear a hoodie</p>
+              </windows>
+            </markers>
+          </google-map>
+        </div>
+        <div class="form-group col-sm-3">
+          <span ng-show="map.locationData.length > 0">
+            <b>Top targets by value: </b><br/>
+            <span ng-repeat="location in map.locationData | orderBy:'ContentTIV':true | limitTo: 10">
+              <b>#{{$index+1}}</b> Contents: ${{location.ContentTIV | number:0}}
+              <a href="#" ng-click="location.onClicked()">goto</a><br/>
+            </span>
+            <br/>
+            <b>Top targets by distance: </b><br/>
+            <span ng-repeat="location in map.locationData | orderBy:'srcDistance' | limitTo: 10">
+              <b>#{{$index+1}}</b> Distance: {{location.srcDistance|number:2}} mi
+              <a href="#" ng-click="location.onClicked()">goto</a><br/>
+            </span>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>

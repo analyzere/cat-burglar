@@ -35,7 +35,7 @@ m.controller('ctrlRmsLoginDialog', function ($scope, $modalInstance, $window,
         try{
           $modalInstance.dismiss();
         } catch(e){}
-      }, 2000);
+      }, 1000);
     }, function(errResponse) {
       $scope.message = 'Error logging in: ' +
           ((errResponse.data || {}).Message || errResponse.status);
