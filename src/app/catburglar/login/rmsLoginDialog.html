@@ -1,0 +1,46 @@
+<div class="modal-header">
+  <button type="button" class="close" aria-hidden="true" ng-click="close()">
+    &times;
+  </button>
+  <h4 class="modal-title">Login to RMS(one)</h4>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="form-group col-sm-4">
+      <label for="tenancy" class="control-label">Tenancy</label>
+      <input id="tenancy" ng-model="auth.tenancy"
+        class="form-control input-sm" type="text"
+        placeholder="Tenancy"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-sm-4">
+      <label for="username" class="control-label">Username</label>
+      <input id="username" ng-model="auth.username"
+        class="form-control input-sm" type="text"
+        placeholder="Username"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-sm-4">
+      <label for="password" class="control-label">Password</label>
+      <input id="password" ng-model="auth.password"
+        class="form-control input-sm" type="password"
+        placeholder="Password"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-sm-8">
+          <p>
+            {{message}}
+          </p>
+    </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" ng-click="close()">
+    Close
+  </button>
+  <button type="button" class="btn btn-primary" ng-click="login()">
+    Login
+  </button>
+</div>

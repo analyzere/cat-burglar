@@ -1,0 +1,133 @@
+/**
+ * NOTE: All Bootstrap syles are included. We should selectively import only
+ * the ones we use when we get further along in the development process.
+ */
+
+@import '../../vendor/bootstrap/less/bootstrap.less';
+@import '../../vendor/font-awesome/less/font-awesome.less';
+@import (less) '../../vendor/nvd3/nv.d3.css';
+@import 'bootswatch.less';
+@import 'bootswatch-variables.less';
+@import 'variables.less';
+
+/**
+ * App-wide styles
+ */
+
+.container-fluid {
+  // This class can be removed when we upgrade to Bootstrap 3.1
+  .container-fixed();
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+body > .container-fluid {
+  padding: 60px 15px 0;
+}
+
+#footer > .container-fluid {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+.nav, .pagination, .carousel, .panel-title a {
+  cursor: pointer;
+}
+
+.well .form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-control-static {
+  padding-top: @padding-base-vertical / 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Prevent modal dialogues from changing page width */
+.modal-open {
+  overflow: inherit;
+}
+
+.modal {
+  overflow-y: auto;
+}
+
+
+/* Condense the layout */
+
+.form-group {
+  padding-bottom: @form-group-padding;
+  margin-bottom: 0;
+}
+
+.panel {
+  margin-bottom: 15px;
+}
+
+.panel-heading {
+  padding: 6px @panel-padding;
+  height: @default-height;
+}
+
+.panel-title {
+  font-size: 15px;
+  i {
+    width: 20px;
+    text-align: center;
+  }
+}
+
+.panel-body {
+  padding: @panel-padding;
+}
+
+.panel.compact .panel-body {
+    padding-bottom: 0;
+}
+
+
+/* Nav bar styles */
+
+.navbar-brand {
+  padding: 7px 15px 7px 0;
+  img {
+    width: 130px;
+  }
+}
+
+/* Sticky footer styles */
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+  padding: none;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: @navbar-height;
+  background-color: @gray-lighter;
+
+  p {
+    margin: 12px 0;
+    opacity: 0.70;
+  }
+}
+
+
+/**
+ * Load the styles for all the submodules and components we are using below here.
+ */
+@import '../app/catburglar/catburglar';
