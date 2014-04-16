@@ -70,7 +70,8 @@ module.exports = {
       'vendor/restangular/dist/restangular.js',
       'vendor/d3/d3.js',
       'vendor/nvd3/nv.d3.js',
-      'vendor/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js'
+      'vendor/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js',
+      'vendor/angular-google-maps/dist/angular-google-maps.js'
     ],
     css: [],
     fonts: [

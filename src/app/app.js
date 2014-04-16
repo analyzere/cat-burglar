@@ -3,6 +3,7 @@ angular.module('ARe', [
   'ui.bootstrap',
   'ui.router',
   'templates-app',
+
   'ARe.catburglar'
 ])
 

@@ -1,11 +1,13 @@
 var catburglar = angular.module('ARe.catburglar', [
   'restangular',
 
-  'catburglar.rmsLogin',
   'catburglar.filters',
   'catburglar.directives',
   'catburglar.services',
-  'catburglar.services.restApi'
+  'catburglar.services.restApi',
+
+  'catburglar.rmsLogin',
+  'catburglar.map'
 ]);
 
 catburglar.config(function config($stateProvider) {
@@ -22,23 +24,6 @@ catburglar.config(function config($stateProvider) {
   });
 });
 
-catburglar.controller('pricingCtrl', function AppCtrl($scope) {
-  // $scope.server is a set of server collections
-  if ($scope.server === undefined) {
-    $scope.server = {
-      analysisProfiles: null,
-      pricingPortfolios: null,
-      portfolios: null,
-      rmsContracts: null
-    };
-  }
-  // $scope.selected is a set of user selected items in the app.
-  if ($scope.selected === undefined) {
-    $scope.selected = {
-      analysisProfile: null,
-      pricingPortfolio: null,
-      portfolio: null,
-      rmsContract: null
-    };
-  }
+catburglar.controller('catburglarCtrl', function AppCtrl($scope) {
+  $scope.auth = {};
 });

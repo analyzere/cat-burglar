@@ -1,11 +1,11 @@
-<div ng-controller="pricingCtrl">
-  <div id="pricingPortfolios" class="panel compact">
+<div ng-controller="catburglarCtrl" ng-init="auth={}">
+  <div id="login" class="panel compact">
     <div class="panel-body">
       <div class="row">
         <div class="form-group col-sm-3">
             <button class="btn btn-primary btn-sm"
                     ng-controller="rmsLogin"
-                    ng-init="auth={tenancy: 'devtrackb', username: 'analyzere', password:'pai0ahTu2u'}"
+                    ng-init="auth.tenancy='devtrackb';auth.username='analyzere';auth.password='pai0ahTu2u';"
                     ng-click="openLogin()">
               Login to RMS(one)
             </button>
@@ -13,4 +13,42 @@
       </div>
     </div>
   </div>
+
+  <div id="map" class="panel panel-primary" ng-show="auth.authorized">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="fa fa-map-marker"></i> Nearby 'Targets'</h3>
+    </div>
+    <div class="panel-body" ng-controller="catMap">
+      <google-map center="map.center" zoom="map.zoom" draggable="true">
+        <marker coords="map.position" options="map.myPositionOptions">
+          <marker-label content="'You Are Here'" anchor="22 0" class="marker-labels"/>
+        </marker>
+        <markers models="map.locationData"
+                 coords="'Address'"
+                 labelContent="'label'"
+                 click="'onClicked'">
+          <windows show="'showWindow'" closeClick="'closeClick'" ng-cloak>
+            <p ng-non-bindable>Target's contents are insured for {{label}}<b>!</b></p>
+            <p ng-non-bindable>Target is at {{ Address.latitude | number:4 }},
+                                            {{ Address.longitude | number:4 }}.
+              <a target="_blank"
+                 href="https://maps.google.ca/maps?saddr={{directionsStart.latitude}},{{directionsStart.longitude}}&daddr={{Address.latitude}},{{Address.longitude}}">
+                Get Directions
+              </a>
+            </p>
+            <p ng-non-bindable>
+              <b>Postal Code</b>: {{Address.PostalCode}}<br/>
+              <b>Listed Address</b>: {{Address.ACORDResolutionCode}}<br/>
+              <b>Stories</b>: {{CommonCharacteristics.NumStories}}<br/>
+              <b>Security Alarm</b>: {{CommonCharacteristics.SecurityAlarm}}<br/>
+              <b>Fire Alarm</b>: {{CommonCharacteristics.FireAlarm}}<br/>
+              <b>Total Home Value</b>: ${{TIV | number:2}}<br/>
+            </p>
+            <p class="muted">Remember: Always wear a hoodie</p>
+          </windows>
+        </markers>
+      </google-map>
+    </div>
+  </div>
+</div>
 </div>

@@ -20,12 +20,22 @@ m.controller('ctrlRmsLoginDialog', function ($scope, $modalInstance, $window,
     var auth = $scope.auth.tenancy + '\\' + $scope.auth.username + ':' +
       $scope.auth.password;
     auth = 'Basic ' + $window.btoa(auth);
+    $scope.auth.authorized = false;
+
     Restangular.all('tokenService/tokens').post(undefined, undefined, {
       'Authorization': auth
     }).then(function(response) {
-      Restangular.defaultHeaders = {'Authorization': response.token};
+      Restangular.defaultHeaders = {
+        'Authorization': JSON.stringify(response.Token)
+      };
+      $scope.auth.token = response.Token;
+      $scope.auth.authorized = true;
       $scope.message = 'Successfully logged in.';
-      $window.setTimeout(function(){ $modalInstance.dismiss(); }, 2000);
+      $window.setTimeout(function(){
+        try{
+          $modalInstance.dismiss();
+        } catch(e){}
+      }, 2000);
     }, function(errResponse) {
       $scope.message = 'Error logging in: ' +
           ((errResponse.data || {}).Message || errResponse.status);
